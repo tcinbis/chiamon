@@ -1,0 +1,60 @@
+version: "3.9"
+x-build: &common-build-args
+  args:
+    - node_exporter_ip=${NODE_EXPORTER_IP}
+    - chia_exporter_ip=${CHIA_EXPORTER_IP}
+    - mtail_harvester_ip=${MTAIL_HARVESTER_IP}
+    - grafana_ip=${GRAFANA_IP}
+    - loki_ip=${LOKI_IP}
+    - prometheus_ip=${PROMETHEUS_IP}
+    - hostname=${HOSTNAME}
+
+services:
+  mtail:
+    build:
+      <<: *common-build-args
+      context: containers/mtail
+    command:
+      - "-progs"
+      - "/etc/mtail"
+      - "-logs"
+      - "/var/log/chia/debug.log"
+      - "-logtostderr"
+    volumes:
+      - ${HOME}/.chia/mainnet/log/:/var/log/chia/
+    networks:
+      - backend
+    ports:
+      - 3903:3903
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    command:
+      - "--path.rootfs=/host"
+    pid: host
+    volumes:
+      - "/:/host:ro,rslave"
+    networks:
+      - backend
+    ports:
+      - 9100:9100
+  promtail:
+    build:
+      <<: *common-build-args
+      context: containers/promtail
+    volumes:
+      - ${HOME}/.chia/mainnet/log:/var/log/chia
+      - ${HOME}/.chia/mainnet/plotter:/var/log/plotter
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - backend
+    ports:
+      - 9080:9080
+
+volumes:
+  prom_data:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
