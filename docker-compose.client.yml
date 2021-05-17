@@ -50,7 +50,9 @@ services:
     ports:
       - 9080:9080
   process_exporter:
-    image: ncabatoff/process-exporter:latest
+    build:
+      <<: *common-build-args
+      context: process-exporter
     command:
       - "-procfs=/host/proc"
       - "-config.path=/config/config.yaml"
