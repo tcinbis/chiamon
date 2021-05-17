@@ -18,7 +18,7 @@ scrape_configs:
       - targets: ["$ENV_CHIA_EXPORTER_IP:9133"]
   - job_name: "processes-plotter"
     static_configs:
-      - targets: ["ENV_NODE_IP:9257"]
+      - targets: ["$ENV_NODE_IP:9257"]
 
   # now for rpi
   - job_name: "node-rpi"
