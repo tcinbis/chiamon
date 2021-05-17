@@ -14,7 +14,7 @@ scrape_configs:
       - targets:
           - localhost
         labels:
-          job: chia-$HOSTNAME
+          job: chia-$ENV_HOSTNAME
           __path__: /var/log/chia/*
   - job_name: plotter
     static_configs:
