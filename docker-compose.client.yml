@@ -13,7 +13,7 @@ services:
   mtail:
     build:
       <<: *common-build-args
-      context: containers/mtail
+      context: mtail
     command:
       - "-progs"
       - "/etc/mtail"
@@ -40,7 +40,7 @@ services:
   promtail:
     build:
       <<: *common-build-args
-      context: containers/promtail
+      context: promtail
     volumes:
       - ${HOME}/.chia/mainnet/log:/var/log/chia
       - ${HOME}/.chia/mainnet/plotter:/var/log/plotter

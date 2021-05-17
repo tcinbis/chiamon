@@ -12,7 +12,7 @@ services:
   prometheus:
     build:
       <<: *common-build-args
-      context: containers/prometheus
+      context: prometheus
     volumes:
       - prom_data:/prometheus
     networks:
@@ -29,7 +29,7 @@ services:
   grafana:
     build:
       <<: *common-build-args
-      context: containers/grafana
+      context: grafana
     networks:
       - backend
       - frontend
@@ -38,7 +38,7 @@ services:
   chia_exporter:
     build:
       <<: *common-build-args
-      context: containers/chia_exporter
+      context: chia_exporter
     command:
       - "-cert"
       - "/etc/chia.crt"
