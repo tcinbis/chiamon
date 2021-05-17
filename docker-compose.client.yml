@@ -49,6 +49,17 @@ services:
       - backend
     ports:
       - 9080:9080
+  process_exporter:
+    image: ncabatoff/process-exporter:latest
+    command:
+      - "-procfs=/host/proc"
+      - "-config.path=/config/config.yaml"
+      - "-web.listen-address=:9257"
+    volumes:
+      - /proc:/host/proc
+      - ./process-exporter:/config
+    networks:
+      - backend
 
 volumes:
   prom_data:
