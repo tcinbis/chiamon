@@ -26,7 +26,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1621316972259,
+  "iteration": 1621366733949,
   "links": [],
   "panels": [
     {
@@ -227,7 +227,9 @@
           "yaxis": "left"
         }
       ],
+      "timeFrom": null,
       "timeRegions": [],
+      "timeShift": null,
       "title": "Plotter CPU Temperature",
       "tooltip": {
         "shared": true,
@@ -339,7 +341,8 @@
             "include": {
               "names": [
                 "Time",
-                "/dev/md127"
+                "/dev/nvme0n1p1",
+                "/dev/nvme1n1p1"
               ]
             }
           }
@@ -443,7 +446,7 @@
           "refId": "B"
         }
       ],
-      "title": "Plots Production (avg 12 h)",
+      "title": "Plot Production (avg 12 h)",
       "type": "stat"
     },
     {
@@ -566,7 +569,7 @@
           "refId": "C"
         }
       ],
-      "title": "Number of  by instance",
+      "title": "Number of plots by instance",
       "type": "bargauge"
     },
     {
@@ -939,7 +942,7 @@
       "fillGradient": 0,
       "grid": {},
       "gridPos": {
-        "h": 5,
+        "h": 8,
         "w": 12,
         "x": 12,
         "y": 13
@@ -1050,120 +1053,6 @@
     },
     {
       "aliasColors": {
-        "iowait": "#890F02"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 7,
-      "fillGradient": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 23,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.6",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Load",
-          "color": "#DEDAF7",
-          "fill": 0,
-          "stack": false,
-          "yaxis": 2
-        }
-      ],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(irate(node_cpu_seconds_total{mode!=\"idle\", instance=\"$node\"}[$__rate_interval])) by (mode)",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{mode}}",
-          "metric": "node_",
-          "refId": "A",
-          "step": 10
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "CPU",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:258",
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:259",
-          "format": "none",
-          "label": "Load",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
         "0 Plots Passed Filter": "dark-red",
         "1 Plots Passed Filter": "light-orange",
         "2 Plots Passed Filter": "yellow",
@@ -1256,6 +1145,120 @@
           "max": null,
           "min": null,
           "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "iowait": "#890F02"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 7,
+      "fillGradient": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "Load",
+          "color": "#DEDAF7",
+          "fill": 0,
+          "stack": false,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(irate(node_cpu_seconds_total{mode!=\"idle\", instance=\"$node\"}[$__rate_interval])) by (mode)",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{mode}}",
+          "metric": "node_",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:258",
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:259",
+          "format": "none",
+          "label": "Load",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
         }
       ],
       "yaxis": {
@@ -1377,10 +1380,10 @@
       "fillGradient": 0,
       "grid": {},
       "gridPos": {
-        "h": 5,
+        "h": 6,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 31
       },
       "hiddenSeries": false,
       "id": 27,
@@ -1500,36 +1503,6 @@
       }
     },
     {
-      "datasource": "Loki",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 33
-      },
-      "id": 30,
-      "options": {
-        "dedupStrategy": "none",
-        "showLabels": false,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "7.5.4",
-      "targets": [
-        {
-          "expr": "{job=~\"plotter.*\"}!=\"uniform sort\"",
-          "refId": "A"
-        }
-      ],
-      "title": "Plotter Logs",
-      "type": "logs"
-    },
-    {
       "datasource": null,
       "fieldConfig": {
         "defaults": {
@@ -1628,7 +1601,7 @@
         ]
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 12,
         "x": 0,
         "y": 34
@@ -1674,6 +1647,217 @@
       ],
       "title": "Node Status",
       "type": "stat"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.9
+              },
+              {
+                "color": "red",
+                "value": 0.95
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 12,
+        "y": 37
+      },
+      "id": 14,
+      "links": [],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.6",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "(node_filesystem_size_bytes{instance=\"$node\",mountpoint=~\"$mounts\"} - node_filesystem_avail_bytes{instance=\"$node\",mountpoint=~\"$mounts\"}) / node_filesystem_size_bytes{instance=\"$node\",mountpoint=~\"$mounts\"}",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{mountpoint}}",
+          "metric": "node_filesystem_size",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk Usage",
+      "type": "stat"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 21474836480
+              },
+              {
+                "color": "red",
+                "value": 35433480202
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 16,
+        "y": 37
+      },
+      "id": 21,
+      "links": [],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.6",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(increase(node_network_receive_bytes_total{instance=\"$node\",device=~\"$interfaces\"}[24h]))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": " rx",
+          "metric": "node_network_receive_bytes",
+          "refId": "A",
+          "step": 10
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(increase(node_network_transmit_bytes_total{instance=\"$node\",device=~\"$interfaces\"}[24h]))",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "tx",
+          "metric": "node_network_transmit_bytes",
+          "refId": "B",
+          "step": 10
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Network Usage (last 24hr)",
+      "type": "stat"
+    },
+    {
+      "datasource": "Loki",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 41
+      },
+      "id": 49,
+      "options": {
+        "dedupStrategy": "none",
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "7.5.6",
+      "targets": [
+        {
+          "expr": "{job=~\"chia-.*\"}|=\"harvester_server\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Harvester Server Logs",
+      "type": "logs"
+    },
+    {
+      "datasource": "Loki",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 44
+      },
+      "id": 30,
+      "options": {
+        "dedupStrategy": "none",
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "7.5.4",
+      "targets": [
+        {
+          "expr": "{job=~\"plotter.*\"}!=\"uniform sort\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Plotter Logs",
+      "type": "logs"
     },
     {
       "datasource": "Prometheus",
@@ -1745,10 +1929,10 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 49
       },
       "id": 15,
       "options": {
@@ -1783,157 +1967,6 @@
       "type": "bargauge"
     },
     {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 0.9
-              },
-              {
-                "color": "red",
-                "value": 0.95
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 12,
-        "y": 41
-      },
-      "id": 14,
-      "links": [],
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.5.6",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "(node_filesystem_size_bytes{instance=\"$node\",mountpoint=~\"$mounts\"} - node_filesystem_avail_bytes{instance=\"$node\",mountpoint=~\"$mounts\"}) / node_filesystem_size_bytes{instance=\"$node\",mountpoint=~\"$mounts\"}",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{mountpoint}}",
-          "metric": "node_filesystem_size",
-          "refId": "A",
-          "step": 10
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Disk Usage",
-      "type": "stat"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 21474836480
-              },
-              {
-                "color": "red",
-                "value": 35433480202
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 20,
-        "y": 41
-      },
-      "id": 21,
-      "links": [],
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.5.6",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(increase(node_network_receive_bytes_total{instance=\"$node\",device=~\"$interfaces\"}[24h]))",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": " rx",
-          "metric": "node_network_receive_bytes",
-          "refId": "A",
-          "step": 10
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(increase(node_network_transmit_bytes_total{instance=\"$node\",device=~\"$interfaces\"}[24h]))",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "tx",
-          "metric": "node_network_transmit_bytes",
-          "refId": "B",
-          "step": 10
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Network Usage (last 24hr)",
-      "type": "stat"
-    },
-    {
       "datasource": "Loki",
       "fieldConfig": {
         "defaults": {},
@@ -1943,7 +1976,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 48
+        "y": 52
       },
       "id": 31,
       "options": {
@@ -2109,12 +2142,12 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Chia",
   "uid": "P-ipES9Mz",
-  "version": 23
+  "version": 31
 }
