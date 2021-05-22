@@ -26,7 +26,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1621366733949,
+  "iteration": 1621667301039,
   "links": [],
   "panels": [
     {
@@ -167,6 +167,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "unit": "celsius"
@@ -210,7 +211,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "node_hwmon_temp_celsius{chip=\"pci0000:00_0000:00:18_3\"}",
+          "expr": "node_hwmon_temp_celsius{chip=\"pci0000:00_0000:00:18_3\", instance=~\"$node.*\"}",
           "interval": "",
           "legendFormat": "CPU Temperature",
           "refId": "A"
@@ -230,7 +231,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Plotter CPU Temperature",
+      "title": "$node CPU Temperature",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -318,7 +319,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "node_filesystem_size_bytes{instance=\"$node\"} - node_filesystem_avail_bytes{instance=\"$node\"}",
+          "expr": "node_filesystem_size_bytes{instance=~\"$node.*\"} - node_filesystem_avail_bytes{instance=~\"$node.*\"}",
           "interval": "",
           "legendFormat": "{{device}}",
           "refId": "A"
@@ -363,7 +364,7 @@
           "format": "decbytes",
           "label": "",
           "logBase": 1,
-          "max": "4e+12",
+          "max": "2e+12",
           "min": "0",
           "show": true
         },
@@ -432,14 +433,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(sum(chia_harvester_plots_total) - sum(chia_harvester_plots_total offset 12h)) /12 \n\n",
+          "expr": "(sum(chia_harvester_plots_total{instance=~\"$node.*\"}) - sum(chia_harvester_plots_total{instance=~\"$node.*\"} offset 12h)) /12 \n\n",
           "interval": "",
           "legendFormat": "Plots in the last 12h",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "(sum(chia_harvester_plots_total) - sum(chia_harvester_plots_total offset 12h)) / 12",
+          "expr": "(sum(chia_harvester_plots_total{instance=~\"$node.*\"}) - sum(chia_harvester_plots_total{instance=~\"$node.*\"} offset 12h)) / 12",
           "hide": true,
           "interval": "",
           "legendFormat": "Plots / h",
@@ -511,6 +512,7 @@
     },
     {
       "datasource": null,
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -567,6 +569,14 @@
           "interval": "",
           "legendFormat": "raspberry",
           "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "chia_harvester_plots_total{instance=~\"192.168.1.167:[\\\\d]+\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "desktop",
+          "refId": "B"
         }
       ],
       "title": "Number of plots by instance",
@@ -776,7 +786,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(node_disk_io_time_seconds_total{instance=\"$node\",device=~\"$disks\"}[$__rate_interval])",
+          "expr": "rate(node_disk_io_time_seconds_total{instance=~\"$node.*\",device=~\"$disks\"}[$__rate_interval])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -984,7 +994,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",device=~\"$disks\"}[$__rate_interval])",
+          "expr": "irate(node_disk_read_bytes_total{instance=~\"$node.*\",device=~\"$disks\"}[$__rate_interval])",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -996,7 +1006,7 @@
         },
         {
           "exemplar": true,
-          "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",device=~\"$disks\"}[$__rate_interval])",
+          "expr": "irate(node_disk_written_bytes_total{instance=~\"$node.*\",device=~\"$disks\"}[$__rate_interval])",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -1213,7 +1223,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(node_cpu_seconds_total{mode!=\"idle\", instance=\"$node\"}[$__rate_interval])) by (mode)",
+          "expr": "sum(irate(node_cpu_seconds_total{mode!=\"idle\", instance=~\"$node.*\"}[$__rate_interval])) by (mode)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{mode}}",
@@ -1420,7 +1430,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "node_memory_MemTotal_bytes{instance=\"$node\"} - node_memory_MemFree_bytes{instance=\"$node\"} - node_memory_Buffers_bytes{instance=\"$node\"} - node_memory_Cached_bytes{instance=\"$node\"}",
+          "expr": "node_memory_MemTotal_bytes{instance=~\"$node.*\"} - node_memory_MemFree_bytes{instance=~\"$node.*\"} - node_memory_Buffers_bytes{instance=~\"$node.*\"} - node_memory_Cached_bytes{instance=~\"$node.*\"}",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
@@ -1431,7 +1441,7 @@
         },
         {
           "exemplar": true,
-          "expr": "node_memory_Buffers_bytes{instance=\"$node\"}",
+          "expr": "node_memory_Buffers_bytes{instance=~\"$node.*\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Buffered",
@@ -1441,7 +1451,7 @@
         },
         {
           "exemplar": true,
-          "expr": "node_memory_Cached_bytes{instance=\"$node\"}",
+          "expr": "node_memory_Cached_bytes{instance=~\"$node.*\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Cached",
@@ -1704,7 +1714,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(node_filesystem_size_bytes{instance=\"$node\",mountpoint=~\"$mounts\"} - node_filesystem_avail_bytes{instance=\"$node\",mountpoint=~\"$mounts\"}) / node_filesystem_size_bytes{instance=\"$node\",mountpoint=~\"$mounts\"}",
+          "expr": "(node_filesystem_size_bytes{instance=~\"$node.*\",mountpoint=~\"$mounts\"} - node_filesystem_avail_bytes{instance=~\"$node.*\",mountpoint=~\"$mounts\"}) / node_filesystem_size_bytes{instance=~\"$node.*\",mountpoint=~\"$mounts\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1775,7 +1785,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(node_network_receive_bytes_total{instance=\"$node\",device=~\"$interfaces\"}[24h]))",
+          "expr": "sum(increase(node_network_receive_bytes_total{instance=~\"$node.*\",device=~\"$interfaces\"}[24h]))",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": " rx",
@@ -1785,7 +1795,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(increase(node_network_transmit_bytes_total{instance=\"$node\",device=~\"$interfaces\"}[24h]))",
+          "expr": "sum(increase(node_network_transmit_bytes_total{instance=~\"$node.*\",device=~\"$interfaces\"}[24h]))",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "tx",
@@ -2007,8 +2017,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "192.168.1.22:9100",
-          "value": "192.168.1.22:9100"
+          "text": "192.168.1.22",
+          "value": "192.168.1.22"
         },
         "datasource": null,
         "definition": "label_values(node_filesystem_size_bytes, instance)",
@@ -2025,7 +2035,7 @@
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
-        "regex": "",
+        "regex": "/([a-zA-Z0-9\\.]+)/",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
@@ -2037,7 +2047,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "/"
           ],
@@ -2072,7 +2082,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -2107,7 +2117,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -2142,12 +2152,12 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Chia",
   "uid": "P-ipES9Mz",
-  "version": 31
+  "version": 10
 }
